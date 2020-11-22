@@ -1,6 +1,5 @@
 import React from 'react'
 import { Switch, Route } from "react-router-dom";
-
 import {AppContainer, MainContainer} from './styled'
 import Header from '../../components/header'
 import Footer from '../../components/footer'
