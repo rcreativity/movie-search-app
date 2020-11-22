@@ -1,4 +1,4 @@
-import Home from './pages/home/index'
+import Home from './pages/home'
 
 function App() {
   return <Home />
