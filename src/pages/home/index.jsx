@@ -1,13 +1,17 @@
 import React from 'react'
-import AppContainer from './styled'
+import {AppContainer, MainContainer} from './styled'
 import Header from '../../components/header'
+import Footer from '../../components/footer'
+import MovieList from '../movie-list'
 
 export default function Home() {
   return (
     <AppContainer>
       <Header />
-      <main>Main content</main>
-      <footer>Footer</footer>
+      <MainContainer>
+        <MovieList />
+      </MainContainer>
+      <Footer />
     </AppContainer>
   )
 }

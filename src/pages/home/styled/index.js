@@ -5,4 +5,9 @@ const AppContainer = styled.div`
   text-align: center
 `
 
-export default AppContainer;
+const MainContainer = styled.div`
+  margin: 0 auto;
+  text-align: center
+`
+
+export {AppContainer, MainContainer};
