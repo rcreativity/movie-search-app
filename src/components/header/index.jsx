@@ -9,7 +9,7 @@ export default function index() {
         <Link to="/">Home</Link>
       </LogoContainer>
       <NavContainer>
-        <Link to="/">Favorites</Link>
+        <Link to="/favourites">Favorites</Link>
       </NavContainer>
     </Header>
   )
