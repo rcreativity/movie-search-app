@@ -1,11 +1,11 @@
 import React , { useState, useContext } from 'react'
-import MovieListContainer from './styled'
+import {MovieListContainer, MovieListUl, ErrorMessage} from './styled'
 import { MovieContext } from '../../movieProvider'
 import Search from '../../components/search'
+import MovieCard from '../../components/movieCard'
 
 export default function MovieList() {
   const { state, dispatch } = useContext(MovieContext);
-
   const [values, setValues] = useState({
     search: "spider",
     type: "movie"
@@ -14,16 +14,17 @@ export default function MovieList() {
   const submitForm = (e) => {
     e.preventDefault();
     const { search, type } = values;
+
     dispatch({ type: 'request' })
     if(search && type) {
       fetch(`http://www.omdbapi.com/?type=${type}&i=tt3896198&apikey=${process.env.REACT_APP_SECRETE_KEY}&s=${search}`)
       .then(response => response.json())
       .then(json => {
-        console.log(json)
         if(json.Response === "False"){
           dispatch({ type: 'failure' })
+        }else{
+          dispatch({ type: 'success', payload: json.Search });
         }
-        dispatch({ type: 'success', payload: json.Search });
       })
     }else{
       alert("Please fill the required fields")
@@ -39,6 +40,7 @@ export default function MovieList() {
   };
 
   console.log(state)
+  const { error, results, loading } = state;
 
   return (
     <MovieListContainer>
@@ -47,7 +49,13 @@ export default function MovieList() {
         submitForm={submitForm} 
         handleChange={handleChange} 
       />
-      {state.error && 'error'}
+      {loading && 'loading'}
+      {error && (
+        <ErrorMessage>Something went wrong, Please search with valid name</ErrorMessage>
+      )}
+      <MovieListUl>
+        {!loading && results?.map((value)=> <MovieCard key={value?.imdbID} movie={value} /> )}
+      </MovieListUl>
     </MovieListContainer>
   )
 }

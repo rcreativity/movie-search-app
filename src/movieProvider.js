@@ -1,10 +1,10 @@
-import React, { createContext, useReducer } from 'react'
+import React, { createContext, useReducer, useCallback } from 'react'
 
 const MovieContext = createContext();
 
 const initialState = {
   loading: false,
-  result: [],
+  results: [],
   error: false
 };
 
@@ -21,14 +21,14 @@ function movieReducer(state, action) {
         ...state, 
         loading: false,
         error: false,
-        result: action.payload
+        results: action.payload
       };
     case 'failure':
       return {
         ...state, 
         loading: false,
         error: true,
-        result: []
+        results: []
       };
     default:
       return state;
@@ -36,7 +36,8 @@ function movieReducer(state, action) {
 }
 
 const MovieProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(movieReducer, initialState);
+  const memoizedMovieReducer = useCallback(movieReducer, [])
+  const [state, dispatch] = useReducer(memoizedMovieReducer, initialState);
 
   return (
     <MovieContext.Provider value={{ state, dispatch }}>
