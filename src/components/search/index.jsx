@@ -1,16 +1,17 @@
-import React, { useContext } from 'react'
-import { SearchContainer } from './styled'
-import { MovieContext } from '../../movieProvider'
+import { SearchContainer, SearchForm, Input, Select } from './styled'
 
-export default function Search() {
-  const { count, increment, decrement } = useContext(MovieContext);
-
+export default function Search({values: {search, type}, handleChange, submitForm}) {
   return (
     <SearchContainer>
-      <h2>Search Results</h2>
-      <h1>{count}</h1>
-      <button onClick={increment}> Increment</button>
-      <button onClick={decrement}> Decrement</button>
+      <SearchForm onSubmit={submitForm}>
+        <Input type="text" name="search" value={search} onChange={handleChange} />
+        <Select name="type" id="type" value={type} onChange={handleChange}>
+          <option value="movie">Movie</option>
+          <option value="series">Series</option>
+          <option value="episode">Episode</option>
+        </Select>
+        <Input type="submit" value="search" />
+      </SearchForm>
     </SearchContainer>
   )
 }
