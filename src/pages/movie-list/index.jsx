@@ -17,7 +17,7 @@ export default function MovieList(props) {
 
     dispatch({ type: 'request' })
     if(search && type) {
-      fetch(`http://www.omdbapi.com/?type=${type}&i=tt3896198&apikey=${process.env.REACT_APP_SECRETE_KEY}&s=${search}`)
+      fetch(`http://www.omdbapi.com/?type=${type}&i=tt3896198&apikey=37f253d6&s=${search}`)
       .then(response => response.json())
       .then(json => {
         if(json.Response === "False"){
